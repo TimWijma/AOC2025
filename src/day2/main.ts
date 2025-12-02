@@ -15,9 +15,8 @@ const part1 = () => {
 
             let middle = len / 2;
             let first_half = id_str.substring(0, middle);
-            let snd_half = id_str.substring(middle);
 
-            if (first_half === snd_half) invalid.push(id);
+            if (first_half.repeat(2) === id_str) invalid.push(id);
         }
     }
 
@@ -31,23 +30,13 @@ const part2 = () => {
             let id_str = id.toString();
             let len = id_str.length;
 
-            for (let cur_len = 1; cur_len <= len; cur_len++) {
+            for (let cur_len = 1; cur_len <= len / 2; cur_len++) {
                 if (len % cur_len !== 0) continue; // if length of id is not divisible by cur_len
 
-                let substrings = [id_str.substring(0, cur_len)];
+                let repeat_times = len / cur_len;
+                let repeat_block = id_str.substring(0, cur_len);
 
-                for (let n = 1; n < len / cur_len; n++) {
-                    let new_substr = id_str.substring(cur_len * n, cur_len * (n + 1));
-
-                    if (new_substr !== substrings[substrings.length - 1]) break;
-                    substrings.push(new_substr);
-                }
-
-                if (
-                    substrings.length > 1 &&
-                    substrings.length === len / cur_len &&
-                    substrings.every((s) => s === substrings[0])
-                ) {
+                if (repeat_block.repeat(repeat_times) === id_str) {
                     invalid.push(id);
                     break;
                 }
