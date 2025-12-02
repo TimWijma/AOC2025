@@ -34,7 +34,7 @@ const part2 = () => {
             }
         } else {
             if (current + mod(amount, 100) > 100) {
-                zeros++
+                zeros++;
             }
         }
 
@@ -43,7 +43,6 @@ const part2 = () => {
             current = mod(current + amount, 100);
         } else {
             current = mod(current - amount, 100);
-
         }
         if (current === 0) zeros++;
     }
