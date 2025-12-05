@@ -28,6 +28,29 @@ const part1 = () => {
     return fresh
 };
 
-const part2 = () => { };
+const part2 = () => {
+    let s_ranges = [...ranges]
+    s_ranges.sort((a, b) => a[0] - b[0])   
+
+    const merged = [s_ranges[0]]
+
+    for (let i = 1; i < s_ranges.length; i++) {
+        const [start, end] = s_ranges[i]
+        const prev = merged[merged.length - 1]
+
+        if (start <= prev[1]) {
+            prev[1] = Math.max(prev[1], end)
+        } else {
+            merged.push([start, end])
+        }
+    }
+
+    let fresh = 0;
+    for (let [start, end] of merged) {
+        fresh += (end - start) + 1
+    }
+
+    return fresh
+};
 
 printResult(part1, part2);
